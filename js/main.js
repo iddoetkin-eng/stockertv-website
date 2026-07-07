@@ -1,5 +1,5 @@
 /* ============================================================
-   StockerTV — site interactions
+   StockerTV — site interactions · v2 monochrome
    No dependencies. Progressive enhancement throughout:
    every section reads correctly with JS disabled.
    ============================================================ */
@@ -26,7 +26,7 @@
   }
 
   /* ============================================================
-     1. Top bar — scroll state + mobile menu
+     1. Top bar — scroll state, mobile menu, active section
      ============================================================ */
 
   var topbar = $("#topbar");
@@ -52,9 +52,25 @@
     });
   }
 
+  /* active-section highlight */
+  var navLinks = $all("a", topnav);
+  var sectionForLink = {};
+  navLinks.forEach(function (a) {
+    var id = (a.getAttribute("href") || "").replace("#", "");
+    var sec = document.getElementById(id);
+    if (sec) sectionForLink[id] = a;
+  });
+
+  onIntersect(Object.keys(sectionForLink).map(function (id) { return document.getElementById(id); }),
+    function (el, visible) {
+      if (!visible) return;
+      navLinks.forEach(function (a) { a.classList.remove("active"); });
+      var link = sectionForLink[el.id];
+      if (link) link.classList.add("active");
+    }, { threshold: 0, rootMargin: "-40% 0px -55% 0px" });
+
   /* ============================================================
      2. Exchange sessions — shared data
-        Hours are the exchanges' regular sessions in local time.
      ============================================================ */
 
   var EXCHANGES = [
@@ -85,15 +101,14 @@
       };
       var day = DAY_INDEX[get("weekday")];
       var mins = (parseInt(get("hour"), 10) % 24) * 60 + parseInt(get("minute"), 10);
-      var open = ex.days.indexOf(day) !== -1 && mins >= ex.open && mins < ex.close;
-      return open;
+      return ex.days.indexOf(day) !== -1 && mins >= ex.open && mins < ex.close;
     } catch (e) {
       return false;
     }
   }
 
   /* ============================================================
-     3. Wire ticker — system status wire (factual, self-referential)
+     3. Wire ticker — system status wire
      ============================================================ */
 
   var wireTrack = $("#wireTrack");
@@ -121,26 +136,23 @@
   setInterval(buildWire, 60000);
 
   /* ============================================================
-     4. Reveal on scroll — auto-tagged
+     4. Reveal on scroll
      ============================================================ */
 
   var revealTargets = $all(
     [
       ".kicker", "h2", ".section-sub",
       ".agents-grid li", ".agents-more",
-      ".rep-card", ".clip",
-      ".fleet-copy", ".fleet-phone",
+      ".rep-card",
+      ".xp-controls", ".xp-stage", ".xp-note",
       ".int-card", ".scale-stats > div", ".sessions",
       ".who-card", ".cta-inner", ".sources-lede", ".sources-row li"
     ].join(",")
   );
 
-  revealTargets.forEach(function (el, i) {
-    el.classList.add("rv");
-  });
+  revealTargets.forEach(function (el) { el.classList.add("rv"); });
 
-  /* stagger siblings inside grids */
-  $all(".agents-grid, .rep-grid, .lineup, .int-grid, .scale-stats, .sources-row").forEach(function (grid) {
+  $all(".agents-grid, .rep-grid, .int-grid, .scale-stats, .sources-row").forEach(function (grid) {
     $all(".rv", grid).forEach(function (el, i) {
       el.style.transitionDelay = Math.min(i * 55, 440) + "ms";
     });
@@ -230,9 +242,7 @@
   function deskFinalState() {
     if (deskHeadline) deskHeadline.textContent = HEADLINE;
     deskChecks.forEach(function (li) { li.classList.add("on"); });
-    if (deskScript) {
-      deskScript.textContent = SCRIPT_TEXT;
-    }
+    if (deskScript) deskScript.textContent = SCRIPT_TEXT;
     if (qVal) qVal.textContent = "95 / 110";
     if (iVal) iVal.textContent = "100 / 100";
     if (qBar) qBar.style.width = "86%";
@@ -260,22 +270,18 @@
     deskReset();
     deskSetStatus("WATCHING THE WIRE");
 
-    /* 1. headline */
     deskDelay(function () {
       deskSetStatus("STORY DETECTED");
       typeInto(deskHeadline, HEADLINE, 16);
     }, 700);
 
-    /* 2. checks */
     deskDelay(function () { deskSetStatus("VERIFYING"); deskChecks[0] && deskChecks[0].classList.add("on"); }, 2400);
     deskDelay(function () { deskChecks[1] && deskChecks[1].classList.add("on"); }, 3200);
     deskDelay(function () { deskChecks[2] && deskChecks[2].classList.add("on"); }, 4000);
 
-    /* 3. script */
     deskDelay(function () {
       deskSetStatus("WRITING — 71 WORDS");
       typeInto(deskScript, SCRIPT_TEXT, 14, function () {
-        /* 4. meters */
         deskSetStatus("GATES — QUALITY & INTEGRITY");
         if (qBar) qBar.style.width = "86%";
         if (iBar) iBar.style.width = "100%";
@@ -284,7 +290,6 @@
           if (iVal) iVal.textContent = "100 / 100";
           deskSetStatus("CLEARED FOR AIR");
         }, 1100);
-        /* 5. loop */
         deskDelay(deskRun, 9000);
       });
     }, 4800);
@@ -301,6 +306,27 @@
         deskRun();
       }
     }, { threshold: 0.35 });
+  }
+
+  /* hero air tile */
+  var heroPlay = $("#heroPlay");
+  if (heroPlay) {
+    var heroVideo = $("video", heroPlay);
+    heroPlay.addEventListener("click", function () {
+      if (heroPlay.classList.contains("playing")) {
+        heroVideo.pause();
+        heroVideo.currentTime = 0;
+        heroPlay.classList.remove("playing");
+        return;
+      }
+      xpStopAll();
+      if (!heroVideo.src) heroVideo.src = heroPlay.getAttribute("data-video");
+      heroPlay.classList.add("playing");
+      var p = heroVideo.play();
+      if (p && p.catch) p.catch(function () { heroPlay.classList.remove("playing"); });
+    });
+    heroVideo.addEventListener("ended", function () { heroPlay.classList.remove("playing"); heroVideo.currentTime = 0; });
+    heroVideo.addEventListener("error", function () { heroPlay.classList.remove("playing"); });
   }
 
   /* ============================================================
@@ -403,7 +429,6 @@
     renderConsole(pipeConsole, idx);
   }
 
-  /* per-step mini consoles for mobile (rail is hidden there) */
   psteps.forEach(function (step, i) {
     var mini = document.createElement("pre");
     mini.className = "pstep-console";
@@ -416,76 +441,330 @@
     if (visible) {
       el.classList.add("on");
       setStage(parseInt(el.getAttribute("data-stage"), 10));
-    } else {
-      /* keep at least one active; only dim when another takes over */
-      if (parseInt(el.getAttribute("data-stage"), 10) !== currentStage) {
-        el.classList.remove("on");
-      }
+    } else if (parseInt(el.getAttribute("data-stage"), 10) !== currentStage) {
+      el.classList.remove("on");
     }
   }, { threshold: 0, rootMargin: "-42% 0px -42% 0px" });
 
-  /* initial state */
   currentStage = -1;
   setStage(1);
   psteps[0] && psteps[0].classList.add("on");
 
   /* ============================================================
-     8. Video tiles — click to play, one at a time
+     8. EXPERIENCE — interactive product demo
      ============================================================ */
 
-  var players = $all(".clip, .air-tile");
+  var V = {
+    nvdaEN: "https://leoofwrctjxtkmhqphtw.supabase.co/storage/v1/object/public/Tradetok%20videos/NVIDIA%20Q4%20Record%20Financial%20Update_1080p_caption.mp4",
+    nvdaES: "https://leoofwrctjxtkmhqphtw.supabase.co/storage/v1/object/public/Tradetok%20videos/SPANISH%20VIDEO.mp4",
+    baxFR:  "https://leoofwrctjxtkmhqphtw.supabase.co/storage/v1/object/public/Tradetok%20videos/FRENCH%20VIDEO.mp4",
+    ibkrEN: "https://leoofwrctjxtkmhqphtw.supabase.co/storage/v1/object/public/Tradetok%20videos/Interactive%20Brokers%20Update.mp4",
+    metaEN: "https://leoofwrctjxtkmhqphtw.supabase.co/storage/v1/object/public/Tradetok%20videos/Meta%20Financial%20Update%202026.mp4"
+  };
 
-  function stopPlayer(btn) {
-    var v = $("video", btn);
-    if (v) { v.pause(); v.currentTime = 0; }
-    btn.classList.remove("playing");
+  var XP_DATA = {
+    gerardo: {
+      name: "Gerardo", desk: "FINANCIAL", img: "assets/reporters/GERRARDO.jpg",
+      langs: {
+        EN: { video: V.nvdaEN, tick: "NVDA ▲ 3.4%", spark: "NVDA · SESSION",
+              head: "NVIDIA reports record fourth-quarter results",
+              src: "<b>REUTERS</b> · 14:08 UTC · source-verified",
+              script: "Hi, I'm Gerardo. NVIDIA reported record fourth-quarter results, with data-center revenue reaching thirty point eight billion dollars, according to the company's filing. The company stated that demand for its new architecture exceeded supply through the quarter. Management disclosed that gross margin widened to seventy-six percent. That's the financial update." },
+        ES: { video: V.nvdaES, tick: "NVDA ▲ 3.4%", spark: "NVDA · SESIÓN",
+              head: "NVIDIA presenta resultados récord del cuarto trimestre",
+              src: "<b>REUTERS</b> · 14:08 UTC · verificado en origen",
+              script: "Hola, soy Gerardo. NVIDIA presentó resultados récord del cuarto trimestre, con ingresos de centros de datos de treinta coma ocho mil millones de dólares, según la presentación de la compañía. Es la actualización financiera." },
+        FR: { video: V.baxFR, tick: "BAX ▲ 1.8%", spark: "BAX · SÉANCE",
+              head: "Baxter publie ses résultats du troisième trimestre",
+              src: "<b>ÉDITION FRANÇAISE</b> · vérifié à la source",
+              script: "Bonjour, je suis Gerardo. Baxter a publié ses résultats du troisième trimestre, selon le communiqué de la société. C'est le point financier." }
+      }
+    },
+    liam: {
+      name: "Liam", desk: "OPERATIONS", img: "assets/reporters/LIAM.jpg",
+      langs: {
+        EN: { video: V.ibkrEN, tick: "IBKR ▲ 2.1%", spark: "IBKR · SESSION",
+              head: "Interactive Brokers reports continued account growth",
+              src: "<b>OPERATIONS DESK</b> · source-verified",
+              script: "Hey, I'm Liam. Interactive Brokers reported continued growth in client accounts, according to the company's monthly disclosure. The company stated that global expansion of its platform operations continued through the period. That's the operations update." }
+      }
+    },
+    annie: {
+      name: "Annie", desk: "PRODUCT", img: "assets/reporters/ANNIE.jpg",
+      langs: {
+        EN: { video: V.metaEN, tick: "META ▲ 2.6%", spark: "META · SESSION",
+              head: "Meta details its 2026 platform update",
+              src: "<b>PRODUCT DESK</b> · source-verified",
+              script: "Hi, I'm Annie. Meta detailed its twenty twenty-six platform update, according to the company's announcement. The company stated that the rollout reaches all markets this quarter. That's the product update." }
+      }
+    },
+    sophia: {
+      name: "Sophia", desk: "LEGAL & RISKS", img: "assets/reporters/SOPHIA.jpg", sim: true,
+      langs: {
+        EN: { tick: "LEGAL & RISKS", spark: "DESK · PREVIEW",
+              head: "The legal and risks desk — cautious by design",
+              src: "<b>SIMULATED PREVIEW</b> · no live story selected",
+              script: "Hi, I'm Sophia. On this desk, language stays cautious and precise — \"alleged\", \"filed\", \"proposed\" — and a verdict is never called before the court's. That's the legal and risks update.",
+              captions: [
+                "“Hi, I'm Sophia.”",
+                "Lawsuits, regulatory actions, and risk — reported with precise, cautious language.",
+                "“Alleged” and “filed” — never a verdict before the court's.",
+                "“That's the legal and risks update.”"
+              ] }
+      }
+    },
+    maya: {
+      name: "Maya", desk: "PRESS RELEASE", img: "assets/reporters/MAYA.jpg", sim: true,
+      langs: {
+        EN: { tick: "PRESS RELEASE", spark: "DESK · PREVIEW",
+              head: "The press release desk — formal and neutral",
+              src: "<b>SIMULATED PREVIEW</b> · no live story selected",
+              script: "Hi, I'm Maya. This desk reports on official announcements in formal, neutral language — no contractions, no hype, and never an endorsement. That's the press release update.",
+              captions: [
+                "“Hi, I'm Maya.”",
+                "Official announcements and investor communications, reported formally and neutrally.",
+                "Reports on the announcement — never for it.",
+                "“That's the press release update.”"
+              ] }
+      }
+    }
+  };
+
+  var XP_BRANDS = {
+    meridian: { text: "Meridian", cls: "b-serif", domain: "meridianmarkets.com" },
+    crescent: { text: "Crescent", cls: "b-caps", domain: "crescentprivate.bank" },
+    vantage:  { text: "vantage.", cls: "b-lower", domain: "vantagetrade.com" },
+    aurum:    { text: "Aurum",   cls: "b-mono", domain: "aurumwealth.com" }
+  };
+
+  var xpStage = $("#xpStage");
+  var xpState = { rep: "gerardo", lang: "EN", brand: "meridian", device: "phone" };
+  var xpWidgets = $all(".widget[data-frame]");
+  var xpCaptionTimer = null;
+
+  function xpEls(widget, key) { return $all('[data-xp="' + key + '"]', widget); }
+
+  /* seeded sparkline so each story has a stable, distinct chart */
+  function sparkPath(seedStr) {
+    var seed = 0;
+    for (var i = 0; i < seedStr.length; i++) seed = (seed * 31 + seedStr.charCodeAt(i)) % 2147483647;
+    function rnd() { seed = (seed * 48271) % 2147483647; return seed / 2147483647; }
+    var pts = [];
+    var y = 14 + rnd() * 6;
+    for (var x = 0; x <= 100; x += 5) {
+      y += (rnd() - 0.44) * 4.2;
+      y = Math.max(3, Math.min(21, y));
+      pts.push([x, y]);
+    }
+    var line = "M" + pts.map(function (p) { return p[0].toFixed(1) + "," + p[1].toFixed(1); }).join(" L");
+    var fill = line + " L100,24 L0,24 Z";
+    return { line: line, fill: fill };
   }
 
-  players.forEach(function (btn) {
-    var video = $("video", btn);
-    if (!video) return;
+  function xpAnimateSpark(path) {
+    if (REDUCED || !path.getTotalLength) return;
+    try {
+      var len = path.getTotalLength();
+      path.style.transition = "none";
+      path.style.strokeDasharray = len + " " + len;
+      path.style.strokeDashoffset = len;
+      void path.getBoundingClientRect();
+      path.style.transition = "stroke-dashoffset 1.2s cubic-bezier(0.2,0.6,0.2,1)";
+      path.style.strokeDashoffset = "0";
+    } catch (e) { /* non-rendered SVG */ }
+  }
 
-    btn.addEventListener("click", function () {
-      if (btn.classList.contains("playing")) {
-        stopPlayer(btn);
-        return;
-      }
-      players.forEach(function (other) { if (other !== btn) stopPlayer(other); });
+  function xpStopAll() {
+    xpWidgets.forEach(function (w) {
+      var video = xpEls(w, "video")[0];
+      var player = xpEls(w, "player")[0];
+      if (video) { video.pause(); video.currentTime = 0; }
+      if (player) player.classList.remove("playing");
+    });
+    if (heroPlay && heroPlay.classList.contains("playing")) {
+      var hv = $("video", heroPlay);
+      if (hv) { hv.pause(); hv.currentTime = 0; }
+      heroPlay.classList.remove("playing");
+    }
+  }
 
-      if (!video.src) video.src = btn.getAttribute("data-video");
-      btn.classList.add("playing");
-      var p = video.play();
-      if (p && p.catch) {
-        p.catch(function () { btn.classList.remove("playing"); });
-      }
+  function xpStartCaptions(story) {
+    if (xpCaptionTimer) { clearInterval(xpCaptionTimer); xpCaptionTimer = null; }
+    if (!story.captions) return;
+    var idx = 0;
+    function setCap() {
+      xpWidgets.forEach(function (w) {
+        var cap = xpEls(w, "caption")[0];
+        if (cap) cap.textContent = story.captions[idx];
+      });
+      idx = (idx + 1) % story.captions.length;
+    }
+    setCap();
+    if (!REDUCED) xpCaptionTimer = setInterval(setCap, 3200);
+  }
+
+  function xpRender(animate) {
+    var rep = XP_DATA[xpState.rep];
+    if (!rep) return;
+    var availableLangs = Object.keys(rep.langs);
+    if (availableLangs.indexOf(xpState.lang) === -1) xpState.lang = "EN";
+    var story = rep.langs[xpState.lang];
+    var brand = XP_BRANDS[xpState.brand];
+    var spark = sparkPath(xpState.rep + xpState.lang);
+
+    xpStopAll();
+
+    xpWidgets.forEach(function (w) {
+      xpEls(w, "poster").forEach(function (el) { el.src = rep.img; });
+      xpEls(w, "tick").forEach(function (el) { el.textContent = story.tick; });
+      xpEls(w, "head").forEach(function (el) { el.textContent = story.head; });
+      xpEls(w, "src").forEach(function (el) { el.innerHTML = story.src; });
+      xpEls(w, "sidehead").forEach(function (el) { el.textContent = story.head; });
+      xpEls(w, "sidesrc").forEach(function (el) { el.innerHTML = story.src; });
+      xpEls(w, "script").forEach(function (el) { el.textContent = story.script; });
+      xpEls(w, "repname").forEach(function (el) { el.textContent = rep.name; });
+      xpEls(w, "repdesk").forEach(function (el) { el.textContent = rep.desk; });
+      xpEls(w, "sparklabel").forEach(function (el) { el.textContent = story.spark; });
+
+      xpEls(w, "sparkline").forEach(function (el) {
+        el.setAttribute("d", spark.line);
+        if (animate) xpAnimateSpark(el);
+      });
+      xpEls(w, "sparkfill").forEach(function (el) { el.setAttribute("d", spark.fill); });
+
+      var player = xpEls(w, "player")[0];
+      if (player) player.classList.toggle("sim", !!rep.sim);
+
+      xpEls(w, "brand").forEach(function (el) {
+        el.textContent = brand.text;
+        el.className = "w-brand " + brand.cls;
+      });
+
+      $all(".w-rep", w).forEach(function (btn) {
+        btn.classList.toggle("is-on", btn.getAttribute("data-rep") === xpState.rep);
+      });
+
+      $all(".w-lang", w).forEach(function (btn) {
+        var lang = btn.getAttribute("data-lang");
+        var available = availableLangs.indexOf(lang) !== -1;
+        btn.disabled = !available;
+        btn.classList.toggle("is-on", lang === xpState.lang);
+        btn.setAttribute("aria-pressed", lang === xpState.lang ? "true" : "false");
+      });
     });
 
-    video.addEventListener("ended", function () { stopPlayer(btn); });
-    video.addEventListener("error", function () { stopPlayer(btn); });
+    xpEls(document, "domain").forEach(function (el) { el.textContent = brand.domain; });
+
+    if (rep.sim) xpStartCaptions(story);
+    else if (xpCaptionTimer) { clearInterval(xpCaptionTimer); xpCaptionTimer = null; }
+  }
+
+  /* wire up widget controls (both frames share state) */
+  xpWidgets.forEach(function (w) {
+    $all(".w-rep", w).forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        xpState.rep = btn.getAttribute("data-rep");
+        xpState.lang = "EN";
+        xpRender(true);
+      });
+    });
+
+    $all(".w-lang", w).forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        xpState.lang = btn.getAttribute("data-lang");
+        xpRender(true);
+      });
+    });
+
+    var playBtn = xpEls(w, "play")[0];
+    var video = xpEls(w, "video")[0];
+    var player = xpEls(w, "player")[0];
+    if (playBtn && video && player) {
+      playBtn.addEventListener("click", function () {
+        var rep = XP_DATA[xpState.rep];
+        var story = rep.langs[xpState.lang];
+        if (!story.video) return;
+        if (player.classList.contains("playing")) { xpStopAll(); return; }
+        xpStopAll();
+        if (video.getAttribute("data-current") !== story.video) {
+          video.src = story.video;
+          video.setAttribute("data-current", story.video);
+        }
+        player.classList.add("playing");
+        var p = video.play();
+        if (p && p.catch) p.catch(function () { player.classList.remove("playing"); });
+      });
+      video.addEventListener("ended", function () { player.classList.remove("playing"); video.currentTime = 0; });
+      video.addEventListener("error", function () { player.classList.remove("playing"); });
+      /* tap the playing video to stop */
+      video.addEventListener("click", function () { xpStopAll(); });
+    }
   });
 
-  /* ============================================================
-     9. Fleet — brand theme switcher
-     ============================================================ */
-
-  var fleetPhone = $("#fleetPhone");
-  var phoneBrand = $("#phoneBrand");
-  var phoneAttrib = $("#phoneAttrib");
-  var fbrands = $all(".fbrand");
-
-  fbrands.forEach(function (btn) {
+  /* brand pills */
+  $all(".fbrand").forEach(function (btn) {
     btn.addEventListener("click", function () {
-      fbrands.forEach(function (b) { b.classList.remove("is-on"); });
+      $all(".fbrand").forEach(function (b) { b.classList.remove("is-on"); b.setAttribute("aria-pressed", "false"); });
       btn.classList.add("is-on");
-      var color = getComputedStyle(btn).getPropertyValue("--fb").trim();
-      if (fleetPhone) fleetPhone.style.setProperty("--fb", color);
-      if (phoneBrand) phoneBrand.textContent = btn.getAttribute("data-short");
-      if (phoneAttrib) phoneAttrib.textContent = btn.getAttribute("data-name") + " · Source: Reuters · 14:08 UTC";
+      btn.setAttribute("aria-pressed", "true");
+      xpState.brand = btn.getAttribute("data-brand");
+      xpRender(false);
     });
   });
 
+  /* device segmented control */
+  var deviceSeg = $("#deviceSeg");
+  var segThumb = $("#segThumb");
+
+  function segPosition() {
+    if (!deviceSeg || !segThumb) return;
+    var on = $(".is-on", deviceSeg);
+    if (!on) return;
+    segThumb.style.left = on.offsetLeft + "px";
+    segThumb.style.width = on.offsetWidth + "px";
+  }
+
+  if (deviceSeg) {
+    $all("button", deviceSeg).forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        $all("button", deviceSeg).forEach(function (b) { b.classList.remove("is-on"); b.setAttribute("aria-pressed", "false"); });
+        btn.classList.add("is-on");
+        btn.setAttribute("aria-pressed", "true");
+        xpState.device = btn.getAttribute("data-device");
+        if (xpStage) xpStage.setAttribute("data-device", xpState.device);
+        xpStopAll();
+        segPosition();
+        /* re-draw sparkline in the newly visible frame */
+        xpRender(true);
+      });
+    });
+    segPosition();
+    window.addEventListener("resize", segPosition);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(segPosition);
+  }
+
+  /* phone status-bar clock — real local time */
+  function phoneClock() {
+    var now = new Date();
+    var h = now.getHours() % 12 || 12;
+    var m = String(now.getMinutes()).padStart(2, "0");
+    xpEls(document, "clock").forEach(function (el) { el.textContent = h + ":" + m; });
+  }
+  phoneClock();
+  setInterval(phoneClock, 30000);
+
+  /* initial render (animate sparkline when scrolled into view) */
+  xpRender(false);
+  var xpStarted = false;
+  onIntersect(xpStage ? [xpStage] : [], function (el, visible) {
+    if (visible && !xpStarted) {
+      xpStarted = true;
+      xpRender(true);
+    }
+  }, { threshold: 0.25 });
+
   /* ============================================================
-     10. Sessions board + UTC clock
+     9. Sessions board + UTC clock
      ============================================================ */
 
   var sessionsGrid = $("#sessionsGrid");

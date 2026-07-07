@@ -12,7 +12,8 @@
   <meta property="og:image" content="https://iddoetkin-eng.github.io/stockertv-website/assets/og.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="assets/fonts/archivo-500-900-100_-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/sourceserif4-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/sourceserif4-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/instrumentsans-400-700-100_-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/ibmplexmono-500-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/fonts.css">
@@ -24,17 +25,18 @@
   <header class="topbar" id="topbar">
     <a class="brand" href="#top" aria-label="StockerTV — home">
       <span class="brand-mark" aria-hidden="true"><span class="brand-dot"></span></span>
-      <span class="brand-word">STOCKER<em>TV</em></span>
+      <span class="brand-word">Stocker<em>TV</em></span>
     </a>
     <nav class="topnav" id="topnav" aria-label="Main">
       <a href="#how">How it works</a>
+      <a href="#experience">Experience</a>
       <a href="#reporters">The desks</a>
       <a href="#integrity">Integrity</a>
       <a href="#scale">Coverage</a>
       <a href="#who">Who it's for</a>
     </nav>
     <div class="topbar-cta">
-      <a class="btn btn-gold btn-sm" href="#demo">Book a demo</a>
+      <a class="btn btn-solid btn-sm" href="#demo">Book a demo</a>
       <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="topnav">
         <span></span><span></span>
       </button>
@@ -66,11 +68,11 @@
       <div class="container hero-inner">
         <div class="hero-copy">
           <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> The white-label AI newsroom for financial platforms</p>
-          <h1 id="hero-h1">Market events in.<br><span class="grad">Broadcast-ready video out.</span></h1>
+          <h1 id="hero-h1">Market events in.<br><span class="it">Broadcast-ready video out.</span></h1>
           <p class="hero-sub">StockerTV watches <strong>32,000+ listed companies</strong> across <strong>53 exchanges</strong>, verifies every fact against Tier-1 sources, and delivers finished news video in your brand — minutes after the market moves. No production team to build. No user data collected.</p>
           <div class="hero-ctas">
-            <a class="btn btn-gold" href="#demo">Book a demo</a>
-            <a class="btn btn-ghost" href="#how">See how it works<span class="arr" aria-hidden="true">↓</span></a>
+            <a class="btn btn-solid" href="#demo">Book a demo</a>
+            <a class="btn btn-ghost" href="#experience">Try the product<span class="arr" aria-hidden="true">↓</span></a>
           </div>
           <dl class="hero-stats" aria-label="Key facts">
             <div><dt>Companies watched</dt><dd data-count="32000" data-suffix="+">32,000+</dd></div>
@@ -217,7 +219,7 @@
       <!-- 30 agents -->
       <div class="container agents">
         <p class="kicker">THE STAFF</p>
-        <h2>A newsroom staffed by <span class="grad">thirty specialists.</span></h2>
+        <h2>A newsroom staffed by <span class="it">thirty specialists.</span></h2>
         <p class="section-sub">Behind the five on-air reporters, thirty specialized agents run the operation — each with one job, done relentlessly.</p>
         <ul class="agents-grid">
           <li><b>EDGAR Fact Validator</b><span>Cross-checks every numeric claim against official SEC filings.</span></li>
@@ -234,6 +236,182 @@
           <li><b>Audit Trail Reporter</b><span>Produces a full provenance report for any clip, on demand.</span></li>
         </ul>
         <p class="agents-more">+ 18 more — filing specialists, rule learners, review triage, thumbnail and render coordination, coverage analysis, health monitoring.</p>
+      </div>
+    </section>
+
+    <!-- ============ EXPERIENCE — interactive product demo ============ -->
+    <section class="xp" id="experience" aria-labelledby="xp-h2">
+      <div class="container xp-head">
+        <p class="kicker"><span class="live-dot" aria-hidden="true"></span> EXPERIENCE IT</p>
+        <h2 id="xp-h2">Don't read about the product.<br><span class="it">Use it.</span></h2>
+        <p class="section-sub">The widget below is what your users would see — real broadcasts from the live pipeline, inside a frame you can play with. Switch reporters and languages, flip between devices, and put a different brand on the desk.</p>
+
+        <div class="xp-controls">
+          <div class="seg" id="deviceSeg" role="group" aria-label="Choose a device frame">
+            <span class="seg-thumb" id="segThumb" aria-hidden="true"></span>
+            <button class="is-on" data-device="phone" aria-pressed="true">iPhone</button>
+            <button data-device="desktop" aria-pressed="false">Web embed</button>
+          </div>
+          <div class="xp-brands" role="group" aria-label="Sample client brands (fictional)">
+            <button class="fbrand is-on" data-brand="meridian" aria-pressed="true">Meridian Markets</button>
+            <button class="fbrand" data-brand="crescent" aria-pressed="false">Crescent Private Bank</button>
+            <button class="fbrand" data-brand="vantage" aria-pressed="false">Vantage Trade</button>
+            <button class="fbrand" data-brand="aurum" aria-pressed="false">Aurum Wealth</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="xp-stage" id="xpStage" data-device="phone">
+
+          <!-- iPhone frame -->
+          <div class="xp-frame xp-phone" aria-label="Mobile embed preview">
+            <div class="iphone">
+              <div class="iphone-screen">
+                <span class="iphone-island" aria-hidden="true"></span>
+                <div class="iphone-status" aria-hidden="true">
+                  <span data-xp="clock">9:41</span>
+                  <span class="sig">5G <span class="batt"></span></span>
+                </div>
+                <div class="widget" data-frame="phone">
+                  <div class="w-top">
+                    <span class="w-brand b-serif" data-xp="brand">Meridian</span>
+                    <span class="w-label">MARKETS · LIVE</span>
+                  </div>
+                  <div class="w-ticker" aria-hidden="true">
+                    <span><b>NVDA</b> 891.42 ▲3.4%</span>
+                    <span><b>IBKR</b> 172.06 ▲2.1%</span>
+                    <span><b>META</b> 612.77 ▲2.6%</span>
+                    <span><b>SPX</b> 6,214 ▲0.8%</span>
+                    <span><b>NDX</b> 22,410 ▲1.2%</span>
+                  </div>
+                  <div class="w-player" data-xp="player">
+                    <img data-xp="poster" src="assets/reporters/GERRARDO.jpg" alt="Reporter portrait">
+                    <video data-xp="video" playsinline preload="none"></video>
+                    <span class="w-live"><span class="live-dot"></span> LIVE</span>
+                    <span class="w-tick" data-xp="tick">NVDA ▲ 3.4%</span>
+                    <div class="w-sim" aria-hidden="true">
+                      <span class="w-sim-chip">SIMULATED PREVIEW</span>
+                      <div class="w-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                      <p class="w-caption" data-xp="caption"></p>
+                    </div>
+                    <div class="w-spark" aria-hidden="true">
+                      <svg viewBox="0 0 100 24" preserveAspectRatio="none">
+                        <path class="sp-fill" data-xp="sparkfill" d="" fill="rgba(255,255,255,0.09)" stroke="none"></path>
+                        <path data-xp="sparkline" d=""></path>
+                      </svg>
+                      <span class="w-spark-label" data-xp="sparklabel">NVDA · SESSION</span>
+                    </div>
+                    <div class="w-lower">
+                      <span class="w-head" data-xp="head">NVIDIA reports record fourth-quarter results</span>
+                      <span class="w-src" data-xp="src"><b>REUTERS</b> · 14:08 UTC · source-verified</span>
+                    </div>
+                    <button class="w-play" data-xp="play" aria-label="Play broadcast">▶</button>
+                  </div>
+                  <div class="w-rail" role="group" aria-label="Switch reporter">
+                    <button class="w-rep is-on" data-rep="gerardo" aria-label="Gerardo — financial desk"><img src="assets/reporters/GERRARDO.jpg" alt=""></button>
+                    <button class="w-rep" data-rep="liam" aria-label="Liam — operations desk"><img src="assets/reporters/LIAM.jpg" alt=""></button>
+                    <button class="w-rep" data-rep="annie" aria-label="Annie — product desk"><img src="assets/reporters/ANNIE.jpg" alt=""></button>
+                    <button class="w-rep" data-rep="sophia" aria-label="Sophia — legal and risks desk"><img src="assets/reporters/SOPHIA.jpg" alt=""></button>
+                    <button class="w-rep" data-rep="maya" aria-label="Maya — press release desk"><img src="assets/reporters/MAYA.jpg" alt=""></button>
+                    <span class="w-rail-meta">
+                      <span class="w-rep-name" data-xp="repname">Gerardo</span>
+                      <span class="w-rep-desk" data-xp="repdesk">FINANCIAL DESK</span>
+                    </span>
+                  </div>
+                  <div class="w-langs" role="group" aria-label="Switch language">
+                    <button class="w-lang is-on" data-lang="EN" aria-pressed="true">EN</button>
+                    <button class="w-lang" data-lang="ES" aria-pressed="false">ES</button>
+                    <button class="w-lang" data-lang="FR" aria-pressed="false">FR</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Browser frame -->
+          <div class="xp-frame xp-desktop" aria-label="Web embed preview">
+            <div class="browser">
+              <div class="browser-bar" aria-hidden="true">
+                <div class="browser-dots"><i></i><i></i><i></i></div>
+                <div class="browser-url">https://<b data-xp="domain">meridianmarkets.com</b>/markets</div>
+                <div style="width:53px"></div>
+              </div>
+              <div class="browser-body">
+                <div class="host-skeleton" aria-hidden="true">
+                  <i class="hs-logo"></i><i class="hs-a"></i><i class="hs-b"></i><i class="hs-c"></i><i class="hs-pill"></i>
+                </div>
+                <div class="widget" data-frame="desktop">
+                  <div class="w-top">
+                    <span class="w-brand b-serif" data-xp="brand">Meridian</span>
+                    <span class="w-label">MARKETS · LIVE</span>
+                  </div>
+                  <div class="w-ticker" aria-hidden="true">
+                    <span><b>NVDA</b> 891.42 ▲3.4%</span>
+                    <span><b>IBKR</b> 172.06 ▲2.1%</span>
+                    <span><b>META</b> 612.77 ▲2.6%</span>
+                    <span><b>SPX</b> 6,214 ▲0.8%</span>
+                    <span><b>NDX</b> 22,410 ▲1.2%</span>
+                    <span><b>DAX</b> 24,102 ▲0.4%</span>
+                  </div>
+                  <div class="w-main">
+                    <div class="w-player" data-xp="player">
+                      <img data-xp="poster" src="assets/reporters/GERRARDO.jpg" alt="Reporter portrait">
+                      <video data-xp="video" playsinline preload="none"></video>
+                      <span class="w-live"><span class="live-dot"></span> LIVE</span>
+                      <span class="w-tick" data-xp="tick">NVDA ▲ 3.4%</span>
+                      <div class="w-sim" aria-hidden="true">
+                        <span class="w-sim-chip">SIMULATED PREVIEW</span>
+                        <div class="w-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                        <p class="w-caption" data-xp="caption"></p>
+                      </div>
+                      <div class="w-lower">
+                        <span class="w-head" data-xp="head">NVIDIA reports record fourth-quarter results</span>
+                        <span class="w-src" data-xp="src"><b>REUTERS</b> · 14:08 UTC · source-verified</span>
+                      </div>
+                      <button class="w-play" data-xp="play" aria-label="Play broadcast">▶</button>
+                    </div>
+                    <div class="w-side">
+                      <span class="w-side-head" data-xp="sidehead">NVIDIA reports record fourth-quarter results</span>
+                      <span class="w-side-src" data-xp="sidesrc"><b>REUTERS</b> · 14:08 UTC · source-verified</span>
+                      <div class="w-scores" data-xp="scores">
+                        <span class="w-score">QUALITY <b>95 / 110</b></span>
+                        <span class="w-score">INTEGRITY <b>100 / 100</b></span>
+                        <span class="w-score">FACTS <b>8 / 8 EDGAR</b></span>
+                      </div>
+                      <div class="w-script" data-xp="script"></div>
+                      <div class="w-side-spark" aria-hidden="true">
+                        <svg viewBox="0 0 100 24" preserveAspectRatio="none">
+                          <path class="sp-fill" data-xp="sparkfill" d="" fill="rgba(255,255,255,0.07)" stroke="none"></path>
+                          <path data-xp="sparkline" d=""></path>
+                        </svg>
+                        <span class="w-side-spark-label" data-xp="sparklabel">NVDA · SESSION</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="w-rail" role="group" aria-label="Switch reporter">
+                    <button class="w-rep is-on" data-rep="gerardo" aria-label="Gerardo — financial desk"><img src="assets/reporters/GERRARDO.jpg" alt=""></button>
+                    <button class="w-rep" data-rep="liam" aria-label="Liam — operations desk"><img src="assets/reporters/LIAM.jpg" alt=""></button>
+                    <button class="w-rep" data-rep="annie" aria-label="Annie — product desk"><img src="assets/reporters/ANNIE.jpg" alt=""></button>
+                    <button class="w-rep" data-rep="sophia" aria-label="Sophia — legal and risks desk"><img src="assets/reporters/SOPHIA.jpg" alt=""></button>
+                    <button class="w-rep" data-rep="maya" aria-label="Maya — press release desk"><img src="assets/reporters/MAYA.jpg" alt=""></button>
+                    <span class="w-rail-meta">
+                      <span class="w-rep-name" data-xp="repname">Gerardo</span>
+                      <span class="w-rep-desk" data-xp="repdesk">FINANCIAL DESK</span>
+                    </span>
+                  </div>
+                  <div class="w-langs" role="group" aria-label="Switch language">
+                    <button class="w-lang is-on" data-lang="EN" aria-pressed="true">EN</button>
+                    <button class="w-lang" data-lang="ES" aria-pressed="false">ES</button>
+                    <button class="w-lang" data-lang="FR" aria-pressed="false">FR</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <p class="xp-note">Broadcasts on the financial, operations, and product desks are real pipeline output, streamed as rendered. The legal and press desks show a simulated preview. Client brands shown are fictional — yours goes here.</p>
       </div>
     </section>
 
@@ -279,88 +457,6 @@
             <p class="rep-voice">Formal and neutral. Reports on the announcement — never for it.</p>
             <p class="rep-lines">“Hi, I'm Maya.” · “That's the press release update.”</p>
           </article>
-        </div>
-      </div>
-
-      <!-- Real broadcasts -->
-      <div class="container lineup-wrap">
-        <p class="kicker">REAL OUTPUT</p>
-        <h2>Today's lineup — <span class="grad">real broadcasts, real pipeline.</span></h2>
-        <p class="section-sub">Five finished clips straight from the engine. Click to play — one at a time, sound on.</p>
-        <div class="lineup" id="lineup">
-          <button class="clip" data-video="https://leoofwrctjxtkmhqphtw.supabase.co/storage/v1/object/public/Tradetok%20videos/NVIDIA%20Q4%20Record%20Financial%20Update_1080p_caption.mp4">
-            <img src="assets/reporters/GERRARDO.jpg" alt="" loading="lazy" decoding="async">
-            <span class="clip-meta"><b>NVDA</b><span>FINANCIAL · EN</span></span>
-            <span class="clip-desk">Gerardo</span>
-            <span class="clip-play" aria-hidden="true">▶</span>
-            <video playsinline preload="none"></video>
-          </button>
-          <button class="clip" data-video="https://leoofwrctjxtkmhqphtw.supabase.co/storage/v1/object/public/Tradetok%20videos/Interactive%20Brokers%20Update.mp4">
-            <img src="assets/reporters/LIAM.jpg" alt="" loading="lazy" decoding="async">
-            <span class="clip-meta"><b>IBKR</b><span>OPERATIONS · EN</span></span>
-            <span class="clip-desk">Liam</span>
-            <span class="clip-play" aria-hidden="true">▶</span>
-            <video playsinline preload="none"></video>
-          </button>
-          <button class="clip" data-video="https://leoofwrctjxtkmhqphtw.supabase.co/storage/v1/object/public/Tradetok%20videos/Meta%20Financial%20Update%202026.mp4">
-            <img src="assets/reporters/ANNIE.jpg" alt="" loading="lazy" decoding="async">
-            <span class="clip-meta"><b>META</b><span>FINANCIAL · EN</span></span>
-            <span class="clip-desk">Annie</span>
-            <span class="clip-play" aria-hidden="true">▶</span>
-            <video playsinline preload="none"></video>
-          </button>
-          <button class="clip" data-video="https://leoofwrctjxtkmhqphtw.supabase.co/storage/v1/object/public/Tradetok%20videos/FRENCH%20VIDEO.mp4">
-            <img src="assets/reporters/GERRARDO.jpg" alt="" loading="lazy" decoding="async">
-            <span class="clip-meta"><b>GLOBAL</b><span>ÉDITION FRANÇAISE</span></span>
-            <span class="clip-desk">Gerardo</span>
-            <span class="clip-play" aria-hidden="true">▶</span>
-            <video playsinline preload="none"></video>
-          </button>
-          <button class="clip" data-video="https://leoofwrctjxtkmhqphtw.supabase.co/storage/v1/object/public/Tradetok%20videos/SPANISH%20VIDEO.mp4">
-            <img src="assets/reporters/ANNIE.jpg" alt="" loading="lazy" decoding="async">
-            <span class="clip-meta"><b>GLOBAL</b><span>EDICIÓN ESPAÑOLA</span></span>
-            <span class="clip-desk">Annie</span>
-            <span class="clip-play" aria-hidden="true">▶</span>
-            <video playsinline preload="none"></video>
-          </button>
-        </div>
-      </div>
-
-      <!-- White-label fleet -->
-      <div class="container fleet" id="fleet">
-        <div class="fleet-copy">
-          <p class="kicker">THE FLEET</p>
-          <h2>One engine.<br><span class="grad">Every brand.</span></h2>
-          <p class="section-sub">Each client gets a branded feed — palette, wordmark, language mix, coverage universe — served from the same verified pipeline. Your users never see StockerTV. They see you.</p>
-          <div class="fleet-brands" role="group" aria-label="Sample brand themes">
-            <button class="fbrand is-on" data-name="Meridian Markets" data-short="MERIDIAN" style="--fb:#4f8df9">Meridian Markets</button>
-            <button class="fbrand" data-name="Crescent Private Bank" data-short="CRESCENT" style="--fb:#2fbf8f">Crescent Private Bank</button>
-            <button class="fbrand" data-name="Vantage Trade" data-short="VANTAGE" style="--fb:#f05454">Vantage Trade</button>
-            <button class="fbrand" data-name="Aurum Wealth" data-short="AURUM" style="--fb:#d9a441">Aurum Wealth</button>
-          </div>
-          <p class="fleet-note">Adding a brand is a configuration file, not a project. Pilot feeds go live in weeks.</p>
-        </div>
-        <div class="fleet-phone" id="fleetPhone" style="--fb:#4f8df9" aria-label="Preview of a branded in-app video feed">
-          <div class="phone-frame">
-            <div class="phone-top">
-              <span class="phone-brand" id="phoneBrand">MERIDIAN</span>
-              <span class="phone-user" aria-hidden="true"></span>
-            </div>
-            <div class="phone-video">
-              <img src="assets/reporters/GERRARDO.jpg" alt="" loading="lazy" decoding="async">
-              <span class="phone-live"><span class="live-dot"></span> LIVE</span>
-              <div class="phone-lower">
-                <b>NVDA · Fourth-quarter results</b>
-                <span id="phoneAttrib">Meridian Markets · Source: Reuters · 14:08 UTC</span>
-              </div>
-            </div>
-            <div class="phone-row">
-              <span class="phone-chip is-on">For you</span>
-              <span class="phone-chip">Watchlist</span>
-              <span class="phone-chip">Earnings</span>
-              <span class="phone-chip">Legal</span>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -436,7 +532,7 @@
     <section class="scale" id="scale" aria-labelledby="scale-h2">
       <div class="container">
         <p class="kicker">COVERAGE</p>
-        <h2 id="scale-h2">Coverage no human newsroom<br><span class="grad">could ever staff.</span></h2>
+        <h2 id="scale-h2">Coverage no human newsroom<br><span class="it">could ever staff.</span></h2>
         <p class="section-sub">A human video team covers a handful of tickers on a good day. The engine is built for the whole market — thousands of finished videos a day, across every session on earth.</p>
 
         <dl class="scale-stats">
@@ -499,10 +595,10 @@
     <section class="cta" id="demo" aria-labelledby="cta-h2">
       <div class="container cta-inner">
         <p class="kicker"><span class="live-dot"></span> BOOK A DEMO</p>
-        <h2 id="cta-h2">See your brand<br><span class="grad">on the desk.</span></h2>
+        <h2 id="cta-h2">See your brand<br><span class="it">on the desk.</span></h2>
         <p class="cta-sub">Thirty minutes. We'll run the live engine on a real filing, walk the full pipeline end to end, and stand up a branded sample feed for your platform. Pilot-ready in weeks.</p>
         <div class="cta-actions">
-          <a class="btn btn-gold btn-lg" href="mailto:iddo@stockertv.com?subject=StockerTV%20demo%20request&body=Hi%20Iddo%2C%0A%0AWe'd%20like%20to%20see%20a%20StockerTV%20demo.%0A%0ACompany%3A%0ARole%3A%0AMarkets%20we%20serve%3A%0A">Book a demo</a>
+          <a class="btn btn-solid btn-lg" href="mailto:iddo@stockertv.com?subject=StockerTV%20demo%20request&body=Hi%20Iddo%2C%0A%0AWe'd%20like%20to%20see%20a%20StockerTV%20demo.%0A%0ACompany%3A%0ARole%3A%0AMarkets%20we%20serve%3A%0A">Book a demo</a>
           <span class="cta-mail">or write to <a href="mailto:iddo@stockertv.com">iddo@stockertv.com</a> — reply within one business day</span>
         </div>
       </div>
@@ -514,13 +610,14 @@
   <footer class="footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <span class="brand-word">STOCKER<em>TV</em></span>
+        <span class="brand-word">Stocker<em>TV</em></span>
         <p>The white-label AI video newsroom for banks, brokers, and trading platforms.</p>
       </div>
       <div class="footer-cols">
         <div>
           <b>Site</b>
           <a href="#how">How it works</a>
+          <a href="#experience">Experience</a>
           <a href="#reporters">The desks</a>
           <a href="#integrity">Integrity</a>
           <a href="#scale">Coverage</a>
@@ -536,7 +633,7 @@
     <div class="container footer-legal">
       <p>StockerTV produces informational market news video. Nothing on this site or in the product is investment advice, a recommendation, or an offer to buy or sell any security. All product output is AI-generated and presented by AI reporters, source-verified against Tier-1 sources and official filings, and governed by a strict editorial rulebook.</p>
       <p>This site sets no cookies and runs no trackers. Zero user data collected — here, and in the product.</p>
-      <p>© 2026 StockerTV. All rights reserved. Sample brand names shown in the fleet preview are fictional.</p>
+      <p>© 2026 StockerTV. All rights reserved. Sample brand names shown in the product preview are fictional.</p>
     </div>
   </footer>
 
