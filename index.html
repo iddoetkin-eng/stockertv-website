@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockerTV — The White-Label AI Video Newsroom for Financial Platforms</title>
+  <meta name="description" content="StockerTV watches 32,000+ listed companies across 53 exchanges, verifies every fact against Tier-1 sources, and delivers broadcast-ready news video in your brand — minutes after the market moves.">
+  <meta property="og:title" content="StockerTV — Market events in. Broadcast-ready video out.">
+  <meta property="og:description" content="The white-label AI video newsroom for banks, brokers, and trading platforms. Source-verified. Stateless. Designed for regulated environments.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://iddoetkin-eng.github.io/stockertv-website/">
+  <meta property="og:image" content="https://iddoetkin-eng.github.io/stockertv-website/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/archivo-500-900-100_-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/instrumentsans-400-700-100_-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/ibmplexmono-500-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <!-- ============ TOP BAR ============ -->
+  <header class="topbar" id="topbar">
+    <a class="brand" href="#top" aria-label="StockerTV — home">
+      <span class="brand-mark" aria-hidden="true"><span class="brand-dot"></span></span>
+      <span class="brand-word">STOCKER<em>TV</em></span>
+    </a>
+    <nav class="topnav" id="topnav" aria-label="Main">
+      <a href="#how">How it works</a>
+      <a href="#reporters">The desks</a>
+      <a href="#integrity">Integrity</a>
+      <a href="#scale">Coverage</a>
+      <a href="#who">Who it's for</a>
+    </nav>
+    <div class="topbar-cta">
+      <a class="btn btn-gold btn-sm" href="#demo">Book a demo</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="topnav">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ WIRE TICKER ============ -->
+  <div class="wire" aria-hidden="true">
+    <div class="wire-track" id="wireTrack">
+      <!-- populated by JS; static fallback below -->
+      <span class="wire-item"><b class="up">NYSE</b> open</span>
+      <span class="wire-item"><b class="up">NASDAQ</b> open</span>
+      <span class="wire-item"><b>LSE</b> London</span>
+      <span class="wire-item"><b>TSE</b> Tokyo</span>
+      <span class="wire-item"><b>HKEX</b> Hong Kong</span>
+      <span class="wire-item"><b>FWB</b> Frankfurt</span>
+      <span class="wire-item"><b>TASE</b> Tel Aviv</span>
+    </div>
+  </div>
+
+  <main id="top">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" aria-labelledby="hero-h1">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="hero-grid"></div>
+        <div class="hero-glow"></div>
+      </div>
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> The white-label AI newsroom for financial platforms</p>
+          <h1 id="hero-h1">Market events in.<br><span class="grad">Broadcast-ready video out.</span></h1>
+          <p class="hero-sub">StockerTV watches <strong>32,000+ listed companies</strong> across <strong>53 exchanges</strong>, verifies every fact against Tier-1 sources, and delivers finished news video in your brand — minutes after the market moves. No production team to build. No user data collected.</p>
+          <div class="hero-ctas">
+            <a class="btn btn-gold" href="#demo">Book a demo</a>
+            <a class="btn btn-ghost" href="#how">See how it works<span class="arr" aria-hidden="true">↓</span></a>
+          </div>
+          <dl class="hero-stats" aria-label="Key facts">
+            <div><dt>Companies watched</dt><dd data-count="32000" data-suffix="+">32,000+</dd></div>
+            <div><dt>Exchanges</dt><dd data-count="53">53</dd></div>
+            <div><dt>Event → script</dt><dd>47<span class="unit">s</span></dd></div>
+            <div><dt>User data collected</dt><dd>0</dd></div>
+          </dl>
+        </div>
+
+        <!-- Live desk demo -->
+        <div class="desk" id="desk" role="img" aria-label="Live demonstration: a wire headline becomes a verified, broadcast-ready video">
+          <div class="desk-head">
+            <span class="desk-title">LIVE DESK</span>
+            <span class="desk-status" id="deskStatus"><span class="live-dot"></span> WATCHING THE WIRE</span>
+          </div>
+          <div class="desk-body">
+            <div class="desk-console">
+              <div class="wire-line" id="deskWire">
+                <span class="src-chip">REUTERS</span>
+                <span class="wire-text" id="deskHeadline"></span>
+              </div>
+              <ol class="desk-checks" id="deskChecks">
+                <li data-step="enrich"><span class="tick"></span>Company file loaded — sector, financials, history</li>
+                <li data-step="verify"><span class="tick"></span>8/8 facts cross-checked against EDGAR filing</li>
+                <li data-step="assign"><span class="tick"></span>Routed to <b>GERARDO · FINANCIAL DESK</b></li>
+              </ol>
+              <div class="desk-script" id="deskScript" aria-hidden="true">
+                <span class="caret" id="deskCaret"></span>
+              </div>
+              <div class="desk-meters">
+                <div class="meter">
+                  <div class="meter-top"><span>QUALITY</span><span id="qVal">—</span></div>
+                  <div class="meter-bar"><i id="qBar" style="--gate:31.8%"></i></div>
+                  <div class="meter-gate">gate 35 / 110</div>
+                </div>
+                <div class="meter">
+                  <div class="meter-top"><span>INTEGRITY</span><span id="iVal">—</span></div>
+                  <div class="meter-bar"><i id="iBar" style="--gate:60%"></i></div>
+                  <div class="meter-gate">gate 60 / 100</div>
+                </div>
+              </div>
+            </div>
+            <div class="desk-air">
+              <button class="air-tile" id="heroPlay" data-video="https://leoofwrctjxtkmhqphtw.supabase.co/storage/v1/object/public/Tradetok%20videos/NVIDIA%20Q4%20Record%20Financial%20Update_1080p_caption.mp4">
+                <img src="assets/reporters/GERRARDO.jpg" alt="" loading="lazy" decoding="async">
+                <span class="air-badge"><span class="live-dot"></span> ON AIR</span>
+                <span class="air-ticker">NVDA · FINANCIAL</span>
+                <span class="air-play" aria-hidden="true">▶</span>
+                <video playsinline preload="none"></video>
+              </button>
+              <p class="air-note">Real output. Rendered by the live pipeline.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SOURCES BAND ============ -->
+    <section class="sources" aria-label="Tier-1 sources">
+      <div class="container">
+        <p class="sources-lede">Five sources. No exceptions. If a claim can't be traced to one of these, it never reaches a script.</p>
+        <ul class="sources-row">
+          <li>BLOOMBERG</li>
+          <li>REUTERS</li>
+          <li>THE WALL STREET JOURNAL</li>
+          <li>FINANCIAL TIMES</li>
+          <li>SEC EDGAR · OFFICIAL FILINGS</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ HOW IT WORKS ============ -->
+    <section class="how" id="how" aria-labelledby="how-h2">
+      <div class="container">
+        <p class="kicker">HOW IT WORKS</p>
+        <h2 id="how-h2">From market event to finished broadcast.<br><span class="dim">No hands on keyboards.</span></h2>
+        <p class="section-sub">Four services run the newsroom — the <b>Watcher</b> finds the story, the <b>Orchestrator</b> builds the case file, the <b>Agents</b> write and gate the script, and the <b>Manager</b> watches everything. Scroll through one story's 47 seconds.</p>
+      </div>
+
+      <div class="pipe container" id="pipe">
+        <!-- Sticky rail -->
+        <div class="pipe-rail" aria-hidden="true">
+          <div class="pipe-rail-inner">
+            <div class="pipe-track"><i class="pipe-progress" id="pipeProgress"></i><i class="pipe-packet" id="pipePacket"></i></div>
+            <ol class="pipe-nodes" id="pipeNodes">
+              <li data-n="1"><b>01</b><span>Watch</span></li>
+              <li data-n="2"><b>02</b><span>Enrich</span></li>
+              <li data-n="3"><b>03</b><span>Verify</span></li>
+              <li data-n="4"><b>04</b><span>Assign</span></li>
+              <li data-n="5"><b>05</b><span>Write</span></li>
+              <li data-n="6"><b>06</b><span>Gate</span></li>
+              <li data-n="7"><b>07</b><span>Air</span></li>
+            </ol>
+            <div class="pipe-screen">
+              <div class="pipe-screen-head">
+                <span id="pipeStageName">STAGE 01 · WATCH</span>
+                <span class="mgr-chip" title="The Manager service monitors every stage">MANAGER · OBSERVING</span>
+              </div>
+              <pre class="pipe-console" id="pipeConsole"></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scroll steps -->
+        <div class="pipe-steps">
+          <article class="pstep" data-stage="1">
+            <span class="pstep-n">01</span>
+            <h3>The Watcher never blinks.</h3>
+            <p>It scans Tier-1 wires around the clock and polls SEC EDGAR every five minutes, across 32,000+ companies on 53 exchanges. A new filing or a market-moving headline becomes a story candidate in seconds — deduplicated, classified, queued.</p>
+          </article>
+          <article class="pstep" data-stage="2">
+            <span class="pstep-n">02</span>
+            <h3>The Orchestrator builds the case file.</h3>
+            <p>Sector, financials, history, prior coverage — the story is enriched with everything a reporter would want on the desk, and checked against what has already aired so the feed never repeats itself.</p>
+          </article>
+          <article class="pstep" data-stage="3">
+            <span class="pstep-n">03</span>
+            <h3>Every fact earns its place.</h3>
+            <p>Claims are extracted with citations, cross-checked against the company's official EDGAR filings by an independent model, and every source link is validated. A fact that can't be verified doesn't get written.</p>
+          </article>
+          <article class="pstep" data-stage="4">
+            <span class="pstep-n">04</span>
+            <h3>The right desk takes the story.</h3>
+            <p>Earnings go to Gerardo. A supply-chain move goes to Liam. A lawsuit goes to Sophia. Five specialist reporters, each with a distinct beat and voice — routed automatically.</p>
+          </article>
+          <article class="pstep" data-stage="5">
+            <span class="pstep-n">05</span>
+            <h3>Written for broadcast, word by word.</h3>
+            <p>Seventy to ninety-five words — a forty-second read. Numbers written out the way an anchor says them. Every claim attributed to its source. No forecasts, no advice, no hype. House style, enforced by machine.</p>
+          </article>
+          <article class="pstep" data-stage="6">
+            <span class="pstep-n">06</span>
+            <h3>Two gates. No mercy.</h3>
+            <p>A 110-point editorial score and a three-layer content integrity engine — 24 rules deep. Fail either gate and the script is rewritten automatically; fail again and it goes to a human review queue. It never reaches your users.</p>
+          </article>
+          <article class="pstep" data-stage="7">
+            <span class="pstep-n">07</span>
+            <h3>On air — in your app, in your brand.</h3>
+            <p>An avatar reporter renders the broadcast with captions, in up to eight languages, delivered as MP4 and HLS through an embed or API. From market event to finished script: 47 seconds. To video in your feed: minutes.</p>
+          </article>
+        </div>
+      </div>
+
+      <!-- 30 agents -->
+      <div class="container agents">
+        <p class="kicker">THE STAFF</p>
+        <h2>A newsroom staffed by <span class="grad">thirty specialists.</span></h2>
+        <p class="section-sub">Behind the five on-air reporters, thirty specialized agents run the operation — each with one job, done relentlessly.</p>
+        <ul class="agents-grid">
+          <li><b>EDGAR Fact Validator</b><span>Cross-checks every numeric claim against official SEC filings.</span></li>
+          <li><b>Novelty Scorer</b><span>Kills rehashed news before it wastes your users' time.</span></li>
+          <li><b>Source Link Validator</b><span>Confirms every cited URL is live and says what we say it says.</span></li>
+          <li><b>Live Event Tracker</b><span>Locks onto scheduled market events and tightens the scan.</span></li>
+          <li><b>Cross-Reference Mapper</b><span>Maps supply-chain and competitor links between companies.</span></li>
+          <li><b>Earnings Calendar Tracker</b><span>Boosts coverage in the minutes around every report.</span></li>
+          <li><b>Insider Activity Pulse</b><span>Reads Form 4 filings for significant insider moves, daily.</span></li>
+          <li><b>Patent Tracker</b><span>Surfaces meaningful patent grants for covered companies.</span></li>
+          <li><b>Daily Market Recap</b><span>Writes the day's multi-company wrap, every day.</span></li>
+          <li><b>Multi-Language Native</b><span>Writes scripts natively in-language — not machine translation.</span></li>
+          <li><b>Chart Suggestion</b><span>Picks the one chart that makes the number land.</span></li>
+          <li><b>Audit Trail Reporter</b><span>Produces a full provenance report for any clip, on demand.</span></li>
+        </ul>
+        <p class="agents-more">+ 18 more — filing specialists, rule learners, review triage, thumbnail and render coordination, coverage analysis, health monitoring.</p>
+      </div>
+    </section>
+
+    <!-- ============ REPORTERS ============ -->
+    <section class="reporters" id="reporters" aria-labelledby="rep-h2">
+      <div class="container">
+        <p class="kicker">THE DESKS</p>
+        <h2 id="rep-h2">Five reporters. Five beats.<br><span class="dim">One house style.</span></h2>
+        <p class="section-sub">Each desk owns a story type, with its own voice, its own rules, and its own avatar. Every reporter is customizable per client — voice, pacing, focus, language.</p>
+        <div class="rep-grid">
+          <article class="rep-card">
+            <div class="rep-photo"><img src="assets/reporters/GERRARDO.jpg" alt="Gerardo, AI financial reporter" loading="lazy" decoding="async"><span class="rep-chip">FINANCIAL</span></div>
+            <h3>Gerardo</h3>
+            <p class="rep-role">Earnings, guidance, market moves</p>
+            <p class="rep-voice">Confident analyst. Leads with the biggest number in the story.</p>
+            <p class="rep-lines">“Hi, I'm Gerardo.” · “That's the financial update.”</p>
+          </article>
+          <article class="rep-card">
+            <div class="rep-photo"><img src="assets/reporters/LIAM.jpg" alt="Liam, AI operations reporter" loading="lazy" decoding="async"><span class="rep-chip">OPERATIONS</span></div>
+            <h3>Liam</h3>
+            <p class="rep-role">Workforce, supply chain, leadership</p>
+            <p class="rep-voice">Business-focused and practical. What the company is actually doing.</p>
+            <p class="rep-lines">“Hey, I'm Liam.” · “That's the operations update.”</p>
+          </article>
+          <article class="rep-card">
+            <div class="rep-photo"><img src="assets/reporters/ANNIE.jpg" alt="Annie, AI product reporter" loading="lazy" decoding="async"><span class="rep-chip">PRODUCT</span></div>
+            <h3>Annie</h3>
+            <p class="rep-role">Launches, features, specs, pricing</p>
+            <p class="rep-voice">Clear and factual. Plain language for complex technology, zero hype.</p>
+            <p class="rep-lines">“Hi, I'm Annie.” · “That's the product update.”</p>
+          </article>
+          <article class="rep-card">
+            <div class="rep-photo"><img src="assets/reporters/SOPHIA.jpg" alt="Sophia, AI legal and risk reporter" loading="lazy" decoding="async"><span class="rep-chip">LEGAL &amp; RISK</span></div>
+            <h3>Sophia</h3>
+            <p class="rep-role">Lawsuits, regulatory actions, risk</p>
+            <p class="rep-voice">Cautious and precise. “Alleged” and “filed” — never a verdict before the court's.</p>
+            <p class="rep-lines">“Hi, I'm Sophia.” · “That's the legal and risks update.”</p>
+          </article>
+          <article class="rep-card">
+            <div class="rep-photo"><img src="assets/reporters/MAYA.jpg" alt="Maya, AI press release reporter" loading="lazy" decoding="async"><span class="rep-chip">PRESS RELEASE</span></div>
+            <h3>Maya</h3>
+            <p class="rep-role">Official announcements, investor communications</p>
+            <p class="rep-voice">Formal and neutral. Reports on the announcement — never for it.</p>
+            <p class="rep-lines">“Hi, I'm Maya.” · “That's the press release update.”</p>
+          </article>
+        </div>
+      </div>
+
+      <!-- Real broadcasts -->
+      <div class="container lineup-wrap">
+        <p class="kicker">REAL OUTPUT</p>
+        <h2>Today's lineup — <span class="grad">real broadcasts, real pipeline.</span></h2>
+        <p class="section-sub">Five finished clips straight from the engine. Click to play — one at a time, sound on.</p>
+        <div class="lineup" id="lineup">
+          <button class="clip" data-video="https://leoofwrctjxtkmhqphtw.supabase.co/storage/v1/object/public/Tradetok%20videos/NVIDIA%20Q4%20Record%20Financial%20Update_1080p_caption.mp4">
+            <img src="assets/reporters/GERRARDO.jpg" alt="" loading="lazy" decoding="async">
+            <span class="clip-meta"><b>NVDA</b><span>FINANCIAL · EN</span></span>
+            <span class="clip-desk">Gerardo</span>
+            <span class="clip-play" aria-hidden="true">▶</span>
+            <video playsinline preload="none"></video>
+          </button>
+          <button class="clip" data-video="https://leoofwrctjxtkmhqphtw.supabase.co/storage/v1/object/public/Tradetok%20videos/Interactive%20Brokers%20Update.mp4">
+            <img src="assets/reporters/LIAM.jpg" alt="" loading="lazy" decoding="async">
+            <span class="clip-meta"><b>IBKR</b><span>OPERATIONS · EN</span></span>
+            <span class="clip-desk">Liam</span>
+            <span class="clip-play" aria-hidden="true">▶</span>
+            <video playsinline preload="none"></video>
+          </button>
+          <button class="clip" data-video="https://leoofwrctjxtkmhqphtw.supabase.co/storage/v1/object/public/Tradetok%20videos/Meta%20Financial%20Update%202026.mp4">
+            <img src="assets/reporters/ANNIE.jpg" alt="" loading="lazy" decoding="async">
+            <span class="clip-meta"><b>META</b><span>FINANCIAL · EN</span></span>
+            <span class="clip-desk">Annie</span>
+            <span class="clip-play" aria-hidden="true">▶</span>
+            <video playsinline preload="none"></video>
+          </button>
+          <button class="clip" data-video="https://leoofwrctjxtkmhqphtw.supabase.co/storage/v1/object/public/Tradetok%20videos/FRENCH%20VIDEO.mp4">
+            <img src="assets/reporters/GERRARDO.jpg" alt="" loading="lazy" decoding="async">
+            <span class="clip-meta"><b>GLOBAL</b><span>ÉDITION FRANÇAISE</span></span>
+            <span class="clip-desk">Gerardo</span>
+            <span class="clip-play" aria-hidden="true">▶</span>
+            <video playsinline preload="none"></video>
+          </button>
+          <button class="clip" data-video="https://leoofwrctjxtkmhqphtw.supabase.co/storage/v1/object/public/Tradetok%20videos/SPANISH%20VIDEO.mp4">
+            <img src="assets/reporters/ANNIE.jpg" alt="" loading="lazy" decoding="async">
+            <span class="clip-meta"><b>GLOBAL</b><span>EDICIÓN ESPAÑOLA</span></span>
+            <span class="clip-desk">Annie</span>
+            <span class="clip-play" aria-hidden="true">▶</span>
+            <video playsinline preload="none"></video>
+          </button>
+        </div>
+      </div>
+
+      <!-- White-label fleet -->
+      <div class="container fleet" id="fleet">
+        <div class="fleet-copy">
+          <p class="kicker">THE FLEET</p>
+          <h2>One engine.<br><span class="grad">Every brand.</span></h2>
+          <p class="section-sub">Each client gets a branded feed — palette, wordmark, language mix, coverage universe — served from the same verified pipeline. Your users never see StockerTV. They see you.</p>
+          <div class="fleet-brands" role="group" aria-label="Sample brand themes">
+            <button class="fbrand is-on" data-name="Meridian Markets" data-short="MERIDIAN" style="--fb:#4f8df9">Meridian Markets</button>
+            <button class="fbrand" data-name="Crescent Private Bank" data-short="CRESCENT" style="--fb:#2fbf8f">Crescent Private Bank</button>
+            <button class="fbrand" data-name="Vantage Trade" data-short="VANTAGE" style="--fb:#f05454">Vantage Trade</button>
+            <button class="fbrand" data-name="Aurum Wealth" data-short="AURUM" style="--fb:#d9a441">Aurum Wealth</button>
+          </div>
+          <p class="fleet-note">Adding a brand is a configuration file, not a project. Pilot feeds go live in weeks.</p>
+        </div>
+        <div class="fleet-phone" id="fleetPhone" style="--fb:#4f8df9" aria-label="Preview of a branded in-app video feed">
+          <div class="phone-frame">
+            <div class="phone-top">
+              <span class="phone-brand" id="phoneBrand">MERIDIAN</span>
+              <span class="phone-user" aria-hidden="true"></span>
+            </div>
+            <div class="phone-video">
+              <img src="assets/reporters/GERRARDO.jpg" alt="" loading="lazy" decoding="async">
+              <span class="phone-live"><span class="live-dot"></span> LIVE</span>
+              <div class="phone-lower">
+                <b>NVDA · Fourth-quarter results</b>
+                <span id="phoneAttrib">Meridian Markets · Source: Reuters · 14:08 UTC</span>
+              </div>
+            </div>
+            <div class="phone-row">
+              <span class="phone-chip is-on">For you</span>
+              <span class="phone-chip">Watchlist</span>
+              <span class="phone-chip">Earnings</span>
+              <span class="phone-chip">Legal</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ INTEGRITY ============ -->
+    <section class="integrity" id="integrity" aria-labelledby="int-h2">
+      <div class="container">
+        <p class="kicker">CONTENT INTEGRITY</p>
+        <h2 id="int-h2">Trust isn't a feature here.<br><span class="dim">It's the architecture.</span></h2>
+        <p class="section-sub">Everything below was designed for one room: the one where your risk team asks the hard questions.</p>
+
+        <div class="int-grid">
+          <article class="int-card int-card-wide">
+            <h3>The three-layer content integrity engine</h3>
+            <ol class="layers">
+              <li>
+                <span class="layer-n">L1</span>
+                <div><b>Forbidden Phrases Scan</b>
+                <p>Instant, deterministic pattern scan. Sixteen forbidden phrases — “buy”, “sell”, “opportunity”, “could”, “might” — plus forward-looking language and formatting violations. Zero tolerance, zero latency.</p></div>
+              </li>
+              <li>
+                <span class="layer-n">L2</span>
+                <div><b>AI Meaning Check</b>
+                <p>An independent model reads the script against a 24-rule editorial rulebook — implied advice, missing balance, subtle manipulation. The things a pattern scan can't see.</p></div>
+              </li>
+              <li>
+                <span class="layer-n">L3</span>
+                <div><b>Tone &amp; Balance Review</b>
+                <p>A final whole-script judgment: Is it balanced? Could the tone sway a trading decision? Is material context missing?</p></div>
+              </li>
+            </ol>
+            <div class="dual-gate">
+              <div><span class="dg-num">35<em>/110</em></span><span class="dg-label">minimum quality score</span></div>
+              <div class="dg-and">AND</div>
+              <div><span class="dg-num">60<em>/100</em></span><span class="dg-label">minimum integrity score</span></div>
+            </div>
+            <p class="int-foot">Fail either gate → automatic rewrite. Fail again → human review queue. Blocked scripts never reach your embed.</p>
+          </article>
+
+          <article class="int-card">
+            <h3>Every fact, verified twice</h3>
+            <p>Scripts are written by one model and fact-checked by a different one — numbers, comparisons, and claims each checked explicitly. Numeric claims are cross-referenced against the company's official EDGAR filings before air.</p>
+          </article>
+
+          <article class="int-card">
+            <h3>Zero user data. Ever.</h3>
+            <p>Delivery is stateless — StockerTV never sees who's watching. No accounts, no cookies, no tracking, no behavioral profiles. There is nothing to breach and nothing to disclose. This website works the same way.</p>
+          </article>
+
+          <article class="int-card">
+            <h3>A human is always reachable</h3>
+            <p>Anything the gates flag routes to a review queue with a real person behind it — triaged in minutes, around the clock. Editorial control can also sit with your team: approve-before-air is a configuration, not a feature request.</p>
+          </article>
+
+          <article class="int-card int-receipt" aria-label="Sample audit trail for one clip">
+            <h3>Every clip ships with a receipt</h3>
+            <div class="receipt" role="img" aria-label="Audit trail: source, checks, scores, approval">
+              <div class="r-row"><span>SOURCE</span><b>Reuters · 14:08 UTC · link retained</b></div>
+              <div class="r-row"><span>FILING</span><b>8-K · verified 8/8 facts</b></div>
+              <div class="r-row"><span>DESK</span><b>GERARDO · FINANCIAL</b></div>
+              <div class="r-row"><span>QUALITY</span><b>95 / 110 · PASS</b></div>
+              <div class="r-row"><span>INTEGRITY</span><b>100 / 100 · PASS</b></div>
+              <div class="r-row"><span>LANGUAGES</span><b>EN · ES · PT</b></div>
+              <div class="r-row"><span>STATUS</span><b class="ok">APPROVED · ON AIR</b></div>
+            </div>
+            <p>Source, checks, scores, and sign-off — logged per clip, exportable on demand, kept for the clip's lifetime.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SCALE ============ -->
+    <section class="scale" id="scale" aria-labelledby="scale-h2">
+      <div class="container">
+        <p class="kicker">COVERAGE</p>
+        <h2 id="scale-h2">Coverage no human newsroom<br><span class="grad">could ever staff.</span></h2>
+        <p class="section-sub">A human video team covers a handful of tickers on a good day. The engine is built for the whole market — thousands of finished videos a day, across every session on earth.</p>
+
+        <dl class="scale-stats">
+          <div><dd data-count="32000" data-suffix="+">32,000+</dd><dt>listed companies watched</dt></div>
+          <div><dd data-count="53">53</dd><dt>exchanges, every region</dt></div>
+          <div><dd>1000<span class="unit">s</span></dd><dt>of videos a day, by design</dt></div>
+          <div><dd data-count="8">8</dd><dt>languages, written natively</dt></div>
+          <div><dd>5<span class="unit">min</span></dd><dt>EDGAR polling cadence</dt></div>
+          <div><dd>24/7</dd><dt>the desk never closes</dt></div>
+        </dl>
+
+        <div class="sessions" aria-label="World exchange sessions, live status">
+          <div class="sessions-head">
+            <span>WORLD SESSIONS</span>
+            <span class="sessions-clock" id="utcClock">— UTC</span>
+          </div>
+          <ul class="sessions-grid" id="sessionsGrid">
+            <!-- populated by JS; static fallback -->
+            <li><b>NYSE</b><span>New York</span></li>
+            <li><b>NASDAQ</b><span>New York</span></li>
+            <li><b>LSE</b><span>London</span></li>
+            <li><b>TSE</b><span>Tokyo</span></li>
+          </ul>
+          <p class="sessions-note">Session status shown in real time. Wherever the next bell rings, the desk is already watching.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ WHO IT'S FOR ============ -->
+    <section class="who" id="who" aria-labelledby="who-h2">
+      <div class="container">
+        <p class="kicker">WHO IT'S FOR</p>
+        <h2 id="who-h2">Built for the platforms<br><span class="dim">traders already trust.</span></h2>
+        <div class="who-grid">
+          <article class="who-card">
+            <p class="who-tag">FOR TRADING PLATFORMS &amp; BROKERS</p>
+            <h3>Retention is a content problem. Solve it with depth.</h3>
+            <ul>
+              <li><b>Feed-grade depth.</b> Fresh clips all day, on every ticker your users actually hold — not one daily show.</li>
+              <li><b>Users stay in-app.</b> The market explainer they'd leave to find on social video is already in your feed — source-verified, in your brand.</li>
+              <li><b>Per-segment feeds.</b> Beginner or expert depth, per-market language editions, watchlist-aware lineups.</li>
+              <li><b>Live in days.</b> A web component and an API. No video team, no studio, no production pipeline to build.</li>
+            </ul>
+          </article>
+          <article class="who-card">
+            <p class="who-tag">FOR BANKS &amp; WEALTH MANAGERS</p>
+            <h3>Institutional-grade by default. No retail noise.</h3>
+            <ul>
+              <li><b>Source-verified, dated, attributed.</b> Every claim traceable to a Tier-1 source or an official filing — with the receipt to prove it.</li>
+              <li><b>Designed for regulated environments.</b> No recommendations, no forecasts, no hype. A rulebook your risk team can read, and an audit trail per clip.</li>
+              <li><b>Client-facing, private-banking calm.</b> Neutral tone, native-language editions for the markets you serve.</li>
+              <li><b>Zero client data leaves your perimeter.</b> Stateless delivery — we never see your customers.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="cta" id="demo" aria-labelledby="cta-h2">
+      <div class="container cta-inner">
+        <p class="kicker"><span class="live-dot"></span> BOOK A DEMO</p>
+        <h2 id="cta-h2">See your brand<br><span class="grad">on the desk.</span></h2>
+        <p class="cta-sub">Thirty minutes. We'll run the live engine on a real filing, walk the full pipeline end to end, and stand up a branded sample feed for your platform. Pilot-ready in weeks.</p>
+        <div class="cta-actions">
+          <a class="btn btn-gold btn-lg" href="mailto:iddo@stockertv.com?subject=StockerTV%20demo%20request&body=Hi%20Iddo%2C%0A%0AWe'd%20like%20to%20see%20a%20StockerTV%20demo.%0A%0ACompany%3A%0ARole%3A%0AMarkets%20we%20serve%3A%0A">Book a demo</a>
+          <span class="cta-mail">or write to <a href="mailto:iddo@stockertv.com">iddo@stockertv.com</a> — reply within one business day</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="brand-word">STOCKER<em>TV</em></span>
+        <p>The white-label AI video newsroom for banks, brokers, and trading platforms.</p>
+      </div>
+      <div class="footer-cols">
+        <div>
+          <b>Site</b>
+          <a href="#how">How it works</a>
+          <a href="#reporters">The desks</a>
+          <a href="#integrity">Integrity</a>
+          <a href="#scale">Coverage</a>
+          <a href="#demo">Book a demo</a>
+        </div>
+        <div>
+          <b>Contact</b>
+          <a href="mailto:iddo@stockertv.com">iddo@stockertv.com</a>
+          <a href="https://stockertv.com" rel="noopener">stockertv.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="container footer-legal">
+      <p>StockerTV produces informational market news video. Nothing on this site or in the product is investment advice, a recommendation, or an offer to buy or sell any security. All product output is AI-generated and presented by AI reporters, source-verified against Tier-1 sources and official filings, and governed by a strict editorial rulebook.</p>
+      <p>This site sets no cookies and runs no trackers. Zero user data collected — here, and in the product.</p>
+      <p>© 2026 StockerTV. All rights reserved. Sample brand names shown in the fleet preview are fictional.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>
