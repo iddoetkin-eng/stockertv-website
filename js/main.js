@@ -32,11 +32,18 @@
   var topbar = $("#topbar");
   var menuBtn = $("#menuBtn");
   var topnav = $("#topnav");
+  var scrollProgress = $("#scrollProgress");
 
   function onScrollBar() {
     topbar.classList.toggle("is-scrolled", window.scrollY > 8);
+    if (scrollProgress) {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+      scrollProgress.style.width = pct.toFixed(2) + "%";
+    }
   }
   window.addEventListener("scroll", onScrollBar, { passive: true });
+  window.addEventListener("resize", onScrollBar, { passive: true });
   onScrollBar();
 
   if (menuBtn) {

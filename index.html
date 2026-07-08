@@ -21,6 +21,8 @@
 </head>
 <body>
 
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
   <!-- ============ TOP BAR ============ -->
   <header class="topbar" id="topbar">
     <a class="brand" href="#top" aria-label="StockerTV — home">
@@ -530,11 +532,29 @@
 
     <!-- ============ SCALE ============ -->
     <section class="scale" id="scale" aria-labelledby="scale-h2">
-      <div class="container">
-        <p class="kicker">COVERAGE</p>
-        <h2 id="scale-h2">Coverage no human newsroom<br><span class="it">could ever staff.</span></h2>
-        <p class="section-sub">A human video team covers a handful of tickers on a good day. The engine is built for the whole market — thousands of finished videos a day, across every session on earth.</p>
+      <div class="container scale-head">
+        <p class="kicker">COVERAGE · LIVE</p>
+        <h2 id="scale-h2">The whole market.<br><span class="it">One desk.</span></h2>
+        <p class="section-sub">A human video team covers a handful of tickers on a good day. The engine watches the entire planet — and turns out thousands of finished videos a day. Every point of light is an exchange. Watch the scripts launch as they clear the desk.</p>
+      </div>
 
+      <div class="globe-shell">
+        <div class="globe-stage" id="globeStage" role="img" aria-label="A rotating globe of the world's stock exchanges, launching finished video scripts as they clear the newsroom. Drag to spin.">
+          <canvas id="globeCanvas"></canvas>
+          <div class="globe-packets" id="globePackets" aria-hidden="true"></div>
+          <div class="globe-hud globe-hud-tl" aria-hidden="true"><span class="live-dot"></span><span id="globeMarkets">— markets open</span></div>
+          <div class="globe-hud globe-hud-tr" aria-hidden="true"><span id="utcClock">— UTC</span></div>
+          <div class="globe-tip" id="globeTip" aria-hidden="true"></div>
+          <div class="globe-hint" id="globeHint" aria-hidden="true"><span class="gh-i" aria-hidden="true"></span> Drag to spin</div>
+        </div>
+
+        <div class="globe-log-panel" aria-hidden="true">
+          <div class="glog-head"><span class="live-dot"></span> DISPATCH · LIVE</div>
+          <div class="glog-list" id="globeLog"></div>
+        </div>
+      </div>
+
+      <div class="container">
         <dl class="scale-stats">
           <div><dd data-count="32000" data-suffix="+">32,000+</dd><dt>listed companies watched</dt></div>
           <div><dd data-count="53">53</dd><dt>exchanges, every region</dt></div>
@@ -547,7 +567,7 @@
         <div class="sessions" aria-label="World exchange sessions, live status">
           <div class="sessions-head">
             <span>WORLD SESSIONS</span>
-            <span class="sessions-clock" id="utcClock">— UTC</span>
+            <span class="sessions-note-inline">wherever the next bell rings, the desk is already watching</span>
           </div>
           <ul class="sessions-grid" id="sessionsGrid">
             <!-- populated by JS; static fallback -->
@@ -556,7 +576,6 @@
             <li><b>LSE</b><span>London</span></li>
             <li><b>TSE</b><span>Tokyo</span></li>
           </ul>
-          <p class="sessions-note">Session status shown in real time. Wherever the next bell rings, the desk is already watching.</p>
         </div>
       </div>
     </section>
@@ -638,5 +657,6 @@
   </footer>
 
   <script src="js/main.js" defer></script>
+  <script src="js/globe.js" defer></script>
 </body>
 </html>
