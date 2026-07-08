@@ -32,7 +32,27 @@ Pushed to `iddoetkin-eng/stockertv-website`, served by GitHub Pages from
   else gets self-hosted Source Serif 4 (closest match in proportions).
   Body/UI: Instrument Sans. Data: IBM Plex Mono.
 - **Motion.** Scroll reveals, a scroll-driven pipeline, count-ups, typing
-  demos — transforms/opacity only, all gated behind `prefers-reduced-motion`.
+  demos, a thin scroll-progress bar, and the living globe — all gated behind
+  `prefers-reduced-motion`.
+
+## The living globe (Coverage section)
+
+`js/globe.js` renders a rotating dot-sphere of the real Earth in canvas 2D,
+zero dependencies:
+
+- **Real geography** from a baked 180×90 land mask (packed base64 bits,
+  derived from a public-domain topology map), sampled onto a Fibonacci
+  point cloud (~3.7k land points, depth-bucketed for a cheap depth-of-field).
+- **20 exchanges** as glowing nodes that brighten and pulse when their local
+  session is open (computed live via `Intl.DateTimeFormat`).
+- **Scripts launch from the desk:** every 1–2.4s an open market fires a beam
+  off the surface and a monochrome clip card (ticker + desk) flies outward,
+  logged in a live "DISPATCH" panel; a HUD shows markets-open + UTC.
+- **Interactive:** drag to spin (pointer + inertia), hover a node for a
+  city/session tooltip.
+- **Fast + considerate:** 60fps, DPR-capped, `IntersectionObserver` +
+  `visibilitychange` pause it when off-screen or backgrounded; reduced-motion
+  renders a calm static globe with no spin or emissions.
 
 ## Centerpiece — the Experience section
 
