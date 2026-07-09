@@ -14,9 +14,9 @@
   --gray-800: #242424;   /* strong lines */
   --gray-750: #1a1a1a;   /* soft lines */
   --gray-600: #4a4a4a;   /* disabled / decorative */
-  --gray-500: #8f8f8f;   /* muted text (AA on panels) */
-  --gray-400: #ababab;   /* secondary text */
-  --gray-200: #d6d6d6;   /* bright secondary */
+  --gray-500: #8a8a8a;   /* muted text (AA on panels) */
+  --gray-400: #bdbdbd;   /* secondary text — raised contrast */
+  --gray-200: #dedede;   /* bright secondary */
   --white: #ffffff;
 
   --bg: var(--black);
@@ -32,9 +32,9 @@
   --font-body: "Instrument Sans", system-ui, -apple-system, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", "Cascadia Mono", monospace;
 
-  --r-sm: 8px;
-  --r-md: 14px;
-  --r-lg: 20px;
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 12px;
 
   --container: 1180px;
   --pad: clamp(20px, 4vw, 44px);
@@ -67,6 +67,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  counter-reset: sec;
 }
 
 ::selection { background: var(--white); color: var(--black); }
@@ -93,14 +94,14 @@ a { color: inherit; }
 h1, h2 {
   font-family: var(--font-serif);
   font-weight: 600;
-  line-height: 1.04;
-  letter-spacing: -0.012em;
+  line-height: 1.02;
+  letter-spacing: -0.018em;
   margin: 0;
   text-wrap: balance;
 }
 
-h1 { font-size: clamp(42px, 5.8vw, 80px); }
-h2 { font-size: clamp(32px, 4.2vw, 56px); }
+h1 { font-size: clamp(44px, 6vw, 84px); }
+h2 { font-size: clamp(33px, 4.4vw, 58px); }
 
 h3 {
   font-family: var(--font-body);
@@ -112,33 +113,37 @@ h3 {
 }
 
 .it { font-style: italic; }
-.dim { color: var(--gray-600); }
+/* second headline clause: white italic, never a washed gray */
+.dim { font-style: italic; color: var(--white); }
 
+/* editorial section index — the signature */
 .kicker {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 500;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--text-3);
-  margin: 0 0 20px;
+  margin: 0 0 26px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  counter-increment: sec;
 }
 
 .kicker::before {
-  content: "";
-  width: 22px;
-  height: 1px;
-  background: var(--gray-600);
+  content: counter(sec, decimal-leading-zero);
+  color: var(--white);
+  font-weight: 600;
+  letter-spacing: 0.04em;
 }
 
 .section-sub {
   color: var(--text-2);
-  font-size: clamp(16px, 1.5vw, 19px);
-  max-width: 620px;
-  margin: 24px 0 0;
+  font-size: clamp(16.5px, 1.5vw, 20px);
+  line-height: 1.55;
+  max-width: 600px;
+  margin: 26px 0 0;
 }
 
 .section-sub b { color: var(--text); font-weight: 600; }
@@ -152,10 +157,10 @@ h3 {
   white-space: nowrap;
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: 16px;
-  letter-spacing: 0.01em;
-  padding: 15px 30px;
-  border-radius: 999px;
+  font-size: 15.5px;
+  letter-spacing: 0.005em;
+  padding: 14px 26px;
+  border-radius: 8px;
   text-decoration: none;
   border: 1px solid transparent;
   cursor: pointer;
@@ -169,12 +174,11 @@ h3 {
 .btn-solid {
   background: var(--white);
   color: var(--black);
-  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
 }
 
 .btn-solid:hover {
   transform: translateY(-2px);
-  box-shadow: 0 14px 40px -12px rgba(255, 255, 255, 0.35);
+  box-shadow: 0 12px 30px -16px rgba(255, 255, 255, 0.4);
 }
 
 .btn-ghost {
@@ -189,8 +193,8 @@ h3 {
 .btn:hover .arr { transform: translateY(3px); }
 .btn:hover .arr-r { transform: translateX(4px); }
 
-.btn-sm { padding: 10px 20px; font-size: 14px; }
-.btn-lg { padding: 18px 40px; font-size: 18px; }
+.btn-sm { padding: 9px 17px; font-size: 13.5px; border-radius: 7px; }
+.btn-lg { padding: 17px 34px; font-size: 17px; }
 
 :is(a, button):focus-visible {
   outline: 2px solid var(--white);
@@ -1073,7 +1077,7 @@ h3 {
 
 .xp-head { text-align: center; }
 .xp-head .kicker { justify-content: center; }
-.xp-head .kicker::before { display: none; }
+.xp-head .kicker::before { display: inline-block; }
 .xp-head .section-sub { margin-left: auto; margin-right: auto; }
 
 /* controls */
@@ -2300,7 +2304,7 @@ h3 {
 .cta-inner { position: relative; }
 
 .cta .kicker { justify-content: center; }
-.cta .kicker::before { display: none; }
+.cta .kicker::before { display: inline-block; }
 
 .cta h2 { font-size: clamp(40px, 5.4vw, 72px); }
 
@@ -2514,7 +2518,7 @@ h3 {
 .scale { overflow: hidden; }
 .scale-head { text-align: center; }
 .scale-head .kicker { justify-content: center; }
-.scale-head .kicker::before { display: none; }
+.scale-head .kicker::before { display: inline-block; }
 .scale-head .section-sub { margin-left: auto; margin-right: auto; }
 
 .globe-shell {
@@ -2765,4 +2769,149 @@ h3 {
   .globe-hud { font-size: 9px; padding: 5px 8px; letter-spacing: 0.1em; }
   .globe-packet { padding: 5px 8px; }
   .globe-packet b { font-size: 11px; }
+}
+
+/* ============================================================
+   v3 — EDITORIAL REFINEMENT
+   Fewer boxes. More air. One confident grid. Higher contrast.
+   The design should read as considered, not decorated.
+   ============================================================ */
+
+/* --- section rhythm: give everything room to breathe --- */
+.how,
+.reporters,
+.integrity,
+.scale,
+.who {
+  padding-top: clamp(104px, 13vh, 192px);
+  padding-bottom: clamp(104px, 13vh, 192px);
+}
+
+.int-grid,
+.rep-grid,
+.who-grid,
+.scale-stats {
+  margin-top: clamp(48px, 6vh, 84px);
+}
+
+/* headline second clause reads as one confident line, not two colours */
+h2 .dim,
+h2 .it { color: var(--white); font-style: italic; }
+
+/* --- INTEGRITY: strip the nested boxes into an editorial table --- */
+.int-grid { gap: clamp(38px, 4vw, 60px) clamp(40px, 5vw, 78px); }
+
+.int-card,
+.int-card-wide {
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--line-soft);
+  border-radius: 0;
+  padding: 30px 0 0;
+}
+
+.int-card:hover { transform: none; border-color: var(--gray-600); }
+
+.int-card h3 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  margin-bottom: 14px;
+}
+
+.layers { gap: 24px; margin-top: 22px; }
+
+.layers li {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  gap: 18px;
+}
+
+.layers li:hover { border-color: transparent; }
+
+.layer-n {
+  background: transparent;
+  border: 0;
+  width: 24px;
+  height: auto;
+  min-width: 24px;
+  color: var(--text-3);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 2px;
+}
+
+.layers b { font-size: 16px; }
+
+.dual-gate {
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--line-soft);
+  border-radius: 0;
+  margin-top: 28px;
+  padding: 26px 0 0;
+}
+
+.int-receipt { gap: 18px; }
+.receipt { background: var(--gray-950); border-color: var(--line-soft); }
+
+/* --- THE STAFF: 12 agents as a clean index, not 12 cards --- */
+.agents-grid { gap: 0 clamp(30px, 4vw, 56px); }
+
+.agents-grid li {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  border-top: 1px solid var(--line-soft);
+  padding: 22px 0 24px;
+}
+
+.agents-grid li:hover { background: transparent; transform: none; border-top-color: var(--gray-600); }
+.agents-grid b { font-size: 15px; }
+
+/* --- WHO IT'S FOR: two calm columns --- */
+.who-card {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  border-top: 1px solid var(--line);
+  padding: 34px 0 0;
+}
+
+.who-card:hover { transform: none; border-top-color: var(--gray-500); }
+
+/* --- COVERAGE stats: clean columns under a hairline --- */
+.scale-stats > div {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  border-top: 1px solid var(--line-soft);
+  padding: 24px 0 0;
+}
+
+.scale-stats > div:hover { transform: none; border-top-color: var(--gray-600); }
+
+/* --- REPORTERS: portraits, no card chrome --- */
+.rep-card { background: transparent; border: 0; border-radius: 0; }
+.rep-card:hover { transform: translateY(-5px); border-color: transparent; }
+.rep-photo { border-radius: 10px; }
+.rep-card h3 { padding: 15px 0 0; }
+.rep-role { padding: 5px 0 0; }
+.rep-voice { padding: 8px 8px 0 0; }
+.rep-lines { padding: 8px 0 0; }
+
+/* --- quiet remaining chrome --- */
+.sessions { border-color: var(--line-soft); }
+.desk { border-color: var(--line-soft); box-shadow: 0 34px 80px -50px rgba(0, 0, 0, 0.92); }
+.topnav a { color: var(--gray-400); }
+
+/* mobile: single-column index lists stay tidy */
+@media (max-width: 760px) {
+  .agents-grid li { padding: 18px 0 20px; }
 }
