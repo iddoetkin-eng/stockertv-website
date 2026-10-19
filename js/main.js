@@ -462,11 +462,11 @@
      ============================================================ */
 
   var V = {
-    nvdaEN: "https://leoofwrctjxtkmhqphtw.supabase.co/storage/v1/object/public/Tradetok%20videos/NVIDIA%20Q4%20Record%20Financial%20Update_1080p_caption.mp4",
-    nvdaES: "https://leoofwrctjxtkmhqphtw.supabase.co/storage/v1/object/public/Tradetok%20videos/SPANISH%20VIDEO.mp4",
-    baxFR:  "https://leoofwrctjxtkmhqphtw.supabase.co/storage/v1/object/public/Tradetok%20videos/FRENCH%20VIDEO.mp4",
-    ibkrEN: "https://leoofwrctjxtkmhqphtw.supabase.co/storage/v1/object/public/Tradetok%20videos/Interactive%20Brokers%20Update.mp4",
-    metaEN: "https://leoofwrctjxtkmhqphtw.supabase.co/storage/v1/object/public/Tradetok%20videos/Meta%20Financial%20Update%202026.mp4"
+    nvdaEN: "https://yusmntynkiwadtsaagbr.supabase.co/storage/v1/object/public/Tradetok%20videos/NVIDIA%20Q4%20Record%20Financial%20Update_1080p_caption.mp4",
+    nvdaES: "https://yusmntynkiwadtsaagbr.supabase.co/storage/v1/object/public/Tradetok%20videos/SPANISH%20VIDEO.mp4",
+    baxFR:  "https://yusmntynkiwadtsaagbr.supabase.co/storage/v1/object/public/Tradetok%20videos/FRENCH%20VIDEO.mp4",
+    ibkrEN: "https://yusmntynkiwadtsaagbr.supabase.co/storage/v1/object/public/Tradetok%20videos/Interactive%20Brokers%20Update.mp4",
+    metaEN: "https://yusmntynkiwadtsaagbr.supabase.co/storage/v1/object/public/Tradetok%20videos/Meta%20Financial%20Update%202026.mp4"
   };
 
   var XP_DATA = {
